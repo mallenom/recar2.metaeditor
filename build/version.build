@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Цели для внедрения версии ПО в файлы -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <!-- Использование -->
+    <!-- Вызывать цель GetVersionFromGit, с необходимыми свойствами, например: 
+        <Target Name="GetVersionFromGit">
+           <MSBuild Projects="version.build" Targets="GetVersionFromGit"
+               Properties="ToolsDirectory=$(ToolsDirectory)"
+           />
+        </Target> -->
+    <!-- Перед следующим вызовом желательно удалить файл ActualVersionFile, иначе версия будет дописываться в конец файла. -->
+    <!-- Вызвать цель UpdateVersion c указанием необходимых свойств, например:
+        <Target Name="BuildVersionFiles">
+            <MSBuild Projects="version.build" Targets="UpdateVersion" 
+                Properties="VersionFile=..\version;
+                CommonAssemblyFileTemplate=..\src\CommonAssemblyInfo.template.cs;
+                CommonAssemblyFile=..\src\CommonAssemblyInfo.cs;
+                ActualVersionFile=..\actualversion.txt;
+                ToolsDirectory=$(ToolsDirectory)" 
+            />
+            <MSBuild Projects="version.build" Targets="UpdateVersion" 
+                Properties="VersionFile=..\version;
+                SoftName=Alernative
+                CommonAssemblyFileTemplate=..\src\CommonAssemblyInfo.template.alt.cs;
+                CommonAssemblyFile=..\src\CommonAssemblyInfo.alt.cs;
+                ActualVersionFile=..\actualversion.txt;
+                ToolsDirectory=$(ToolsDirectory)" 
+            />
+        </Target> -->
+    <!-- 
+    Импортировать файл version.targets в файлы, где нужна версия.
+    Формируются следующие переменные:
+    $(Version) - строка с краткой версией Major.Minor.Patch-Configuration.
+    $(FullVersion) - строка с полной версией Major.Minor.Patch-Configuration-Revision[Hash].
+    -->
+
+    <!-- Используемые свойства -->
+    <!-- $(VersionFile) - файл с свойствами $(Major), $(Minor), $(Patch), $(ConfigurationVC) -->
+    <!-- $(CommonAssemblyFileTemplate) - путь к файлу-шаблону для формирования CommonAssemblyFile.cs -->
+    <!-- $(CommonAssemblyFile) - путь к файлу CommonAssemblyFile.cs -->
+    <!-- $(ActualVersionFile) - путь к файлу, в который помещается актуальная версия ПО после выполнения целей. -->
+    <!-- $(SoftName) - имя ПО. Прописывается в файл $(ActualVersionFile) -->
+    <!-- $(CommonToolsDirectory) - путь к директории с общими tools. Если прописан $(ImitMsBuildTasks), то не нужен -->
+    <!-- $(MallenomMsBuildTasks) путь к файлу с целями Imit.MsBuild -->
+
+    <PropertyGroup>
+        <VersionFile Condition="'$(VersionFile)'==''">version</VersionFile>
+        <CommonAssemblyFileTemplate Condition="'$(CommonAssemblyFileTemplate)'==''">CommonAssemblyInfo.template.cs</CommonAssemblyFileTemplate>
+        <CommonAssemblyFile Condition="'$(CommonAssemblyFile)'==''">CommonAssemblyInfo.cs</CommonAssemblyFile>
+        <ActualVersionFile Condition="'$(ActualVersionFile)'==''">actualversion.txt</ActualVersionFile>
+        <CommonToolsDirectory Condition="'$(CommonToolsDirectory)'==''">..\src\tools\common\</CommonToolsDirectory>
+        <MallenomMsBuildTasks Condition="'$(MallenomMsBuildTasks)'==''">$(CommonToolsDirectory)msbuild\mallenom.msbuildtasks.targets</MallenomMsBuildTasks>
+    </PropertyGroup>
+
+    <Import Project="$(MSBuildThisFileDirectory)version.targets" />
+    <Import Project="$(MallenomMsBuildTasks)" Condition="Exists('$(MallenomMsBuildTasks)')" />
+
+    <!--====================================================++++++++++++++++=-->
+    <!-- Формирует файл с данными на основе коммита из git на основе шаблона -->
+    <!--=================================================++++++++++++++++====-->
+    <Target Name="GetVersionFromGit">
+        <GitVersionByTag Input="$(VersionVcsFileTemplate)" Output="$(VersionVcsFile)" Match="initial" />
+    </Target>
+
+    <!--============================-->
+    <!-- Формирует файлы с версиями -->
+    <!--============================-->
+    <Target Name="UpdateVersion" DependsOnTargets="UpdateCommonAssembly;CreateActualVersionFile">
+    </Target>
+
+    <!--===================================-->
+    <!-- Формирует файл CommonAssemblyInfo -->
+    <!--===================================-->
+    <ItemGroup>
+        <Template Include="$MAJOR$" />
+        <Value Include="$(Major)" />
+        <Template Include="$MINOR$" />
+        <Value Include="$(Minor)" />
+        <Template Include="$PATCH$" />
+        <Value Include="$(Patch)" />
+        <Template Include="$CONFIG$" />
+        <Value Condition="'$(ConfigurationVC)'!=''" Include="$(ConfigurationVC)" />
+        <Value Condition="'$(ConfigurationVC)'==''" Include="''" />
+        <Template Include="$COMMIT_YEAR_GIT$" />
+        <Value Include="$(CommitYear)" />
+        <Template Include="$COMMIT_DATE_GIT$" />
+        <Value Include="$(CommitDate)" />
+        <Template Include="$COMPILE_DATE_GIT$" />
+        <Value Include="$(CompileDate)" />
+        <Template Include="$OFFSET_GIT$" />
+        <Value Include="$(Revision)" />
+        <Template Include="$HASH_GIT$" />
+        <Value Include="$(Hash)" />
+    </ItemGroup>
+
+    <Target Name="UpdateCommonAssembly">
+        <Message Text="Version: $(Version)" />
+        <Message Text="Full version: $(FullVersion)" />
+        <Error Condition="'$(Hash)'==''" Text="Не найден тег 'initial' в git-репозитории." />
+        <FileUpdate Input="$(CommonAssemblyFileTemplate)" Output="$(CommonAssemblyFile)" Template="@(Template)" Value="@(Value)" AlwaysReplace="false" />
+        <Message Text="File updated: $(CommonAssemblyFile)." />
+    </Target>
+
+    <!-- Создание текcтового файла с номером актуальной версии -->
+    <Target Name="CreateActualVersionFile">
+        <ItemGroup>
+            <Line Include="line01" Condition="'$(SoftName)'!=''">
+                <Text>$(Version) // $(SoftName)</Text>
+            </Line>
+            <Line Include="line01" Condition="'$(SoftName)'==''">
+                <Text>$(Version)</Text>
+            </Line>
+            <Line Include="line02" Condition="'$(SoftName)'!=''">
+                <Text>$(FullVersion) // $(SoftName)</Text>
+            </Line>
+            <Line Include="line02" Condition="'$(SoftName)'==''">
+                <Text>$(FullVersion)</Text>
+            </Line>
+            <LineText Include="%(Line.Text)" />
+        </ItemGroup>
+        <WriteLinesToFile File="$(ActualVersionFile)" Lines="@(LineText)" Overwrite="false" />
+    </Target>
+</Project>

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Цели для NuGet -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <NugetPath>$([System.IO.Path]::Combine('$(SourcesDirectory)', '.nuget', 'NuGet.exe'))</NugetPath>
+    <NuspecDirectory>$([System.IO.Path]::Combine('$(BuildDirectory)', 'nuget'))\</NuspecDirectory>
+    <VersionSuffix Condition="'$(CurrentBranch)'!='refs/heads/master' AND '$(CurrentBranch)'!='master'">-$(ConfigurationVC)</VersionSuffix>
+  </PropertyGroup>
+
+  <Target Name ="PublishPackages">
+    <Exec Command="$(NugetPath) pack $(NuspecDirectory)%(NugetPkg.Identity).nuspec -Symbols -Version $(Major).$(Minor).$(Patch)$(VersionSuffix) -OutputDirectory $(NuspecDirectory)" />
+    <Exec Command="$(NugetPath) push $(NuspecDirectory)%(NugetPkg.Identity).$(Major).$(Minor).$(Patch)$(VersionSuffix).nupkg $(ApiKey) -Source $(NugetSrv)" />
+    <Exec Command="$(NugetPath) push $(NuspecDirectory)%(NugetPkg.Identity).$(Major).$(Minor).$(Patch)$(VersionSuffix).symbols.nupkg $(ApiKey) -Source $(NugetSrv)" />
+  </Target>
+
+</Project>

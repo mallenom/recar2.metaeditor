@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Image Version="1.0">
+  <DongleId Value="" />
+  <HumanChecked Value="True" />
+  <Important Value="False" />
+  <Brightness Value="Light" />
+  <Description Value="Эстония(EE)" />
+  <Plates>
+    <Plate>
+      <Number Value="0181DZN" />
+      <Stencil Value="" />
+      <Quality Value="Normal" />
+      <Country Value="est" />
+      <Probability Value="0" />
+      <Region>
+        <Point X="690" Y="363" />
+        <Point X="754" Y="363" />
+        <Point X="755" Y="378" />
+        <Point X="690" Y="377" />
+      </Region>
+    </Plate>
+    <Plate>
+      <Number Value="905AXA" />
+      <Stencil Value="EST_N01_000aaa" />
+      <Quality Value="Normal" />
+      <Country Value="est" />
+      <Probability Value="0" />
+      <Region>
+        <Point X="407" Y="411" />
+        <Point X="484" Y="412" />
+        <Point X="484" Y="429" />
+        <Point X="407" Y="428" />
+      </Region>
+    </Plate>
+  </Plates>
+</Image>

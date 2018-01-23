@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>mallenom.msbuildtasks</name>
+    </assembly>
+    <members>
+        <member name="M:Mallenom.MSBuildTasks.AppInfo.FullVersion(System.Reflection.Assembly)">
+            <summary>Полная версия приложения.</summary>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.AppInfo.DateTimeOfCompile1(System.Reflection.Assembly)">
+            <summary>Дата компиляции продукта.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.AssemblyDependencies">
+            <summary>Генерация списка зависимостей сборок.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.AssemblyDependencies.AssembliesNames">
+            <summary>Сборка для которой устанавливаем зависимости.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.AssemblyDependencies.OutputFileName">
+            <summary>Имя результирующего файла(без расширения) с зависимостями.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.AssemblyDependencies.OutputType">
+            <summary>
+            Тип выхода.
+            Console - вывод в консоль,
+            TxtFile - в текстовый файл (по умолчанию),
+            XmlFile- в xml-файл.
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.AssemblyDependencies.AssemblyInfoTemplate">
+            <summary>
+            Шаблон для представления информации о сборке.
+            $LEVEL$.$NAME$.$VERSION$
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.AssemblyDependencies.Encoding">
+            <summary>Кодировка устанавливаемая для результирующего файла.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.AssemblyDependencies.Info">
+            <summary>
+            Вспомогательный класс для хранения информации о сборке.
+            </summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.PrepareCodeWallProjectFile">
+            <summary>Задача подготовки конфигурационного файла CodeWall.</summary>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.PrepareCodeWallProjectFile.Execute">
+            <summary>When overridden in a derived class, executes the task.</summary>
+            <returns>true if the task successfully executed; otherwise, false.</returns>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.PrepareCodeWallProjectFile.TemplateFile">
+            <summary>Файл-шаблон.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.PrepareCodeWallProjectFile.BaseDirectory">
+            <summary>Директория с защищаемыми файлами.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.PrepareCodeWallProjectFile.CodeWallOutputPath">
+            <summary>Директория с защищенными файлами.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.PrepareCodeWallProjectFile.Output">
+            <summary>Файл конфигурации CodeWall.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.TextChanger">
+            <summary>
+            Создание файла на основе шаблона с заменой текста.
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TextChanger.Input">
+            <summary>Файл с шаблоном.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TextChanger.Output">
+            <summary>Результирующий файл.</summary>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.Git.GetGitFullPath">
+            <summary>Получить полный путь к исполняемому файлу git.exe.</summary>
+            <returns>null, если не найден.</returns>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.Git.GetFullPath(System.String)">
+            <summary></summary>
+            <param name="filename"></param>
+            <returns>null, если путь не найден.</returns>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.Git.Execute(System.String,System.String)">
+            <summary>Запускает git с указанными аргументами и рабочей директорией.</summary>
+            <param name="args"></param>
+            <param name="workingDirectory"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.Git.GitDescribe(System.String,System.String,System.String@,System.String@,System.String@)">
+            <summary>Результат команды git describe --tags</summary>
+            <param name="workingDirectory"></param>
+            <param name="match">Паттерн по котрому ищется тег.</param>
+            <param name="tag"></param>
+            <param name="offset"></param>
+            <param name="hash"></param>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.FileUpdate">
+            <summary>
+            Обновление(+создание) файла на основе шаблона с заменой текста.
+            создание файла происходит, когда названия входного и результирующего файла одинаковые
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.FileUpdate.Input">
+            <summary>Файл с шаблоном.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.FileUpdate.Output">
+            <summary>Результирующий файл.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.FileUpdate.AlwaysReplace">
+            <summary>Указывает, всегда или при наличии нового контента заменять целевой файл.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.GitBuildNumber">
+            <summary>Пoлучение номера билда на основе хеша коммита в git-хранилище.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitBuildNumber.WorkingDirectory">
+            <summary>Путь к файлу git.exe, включающий имя файла.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitBuildNumber.Input">
+            <summary>Файл с шаблоном.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitBuildNumber.Output">
+            <summary>Результирующий файл.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitBuildNumber.Encoding">
+            <summary>Кодировка файла.</summary>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.GitUtility.GetGitFullPath">
+            <summary>Получить полный путь к исполняемому файлу git.exe.</summary>
+            <returns>null, если не найден.</returns>
+        </member>
+        <member name="M:Mallenom.MSBuildTasks.GitUtility.GetFullPath(System.String)">
+            <summary></summary>
+            <param name="filename"></param>
+            <returns>null, если путь не найден.</returns>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.GitVersionByTag">
+            <summary>Формирование файла по тегам системы git.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitVersionByTag.GitDirectory">
+            <summary>Путь к файлу git.exe, включающий имя файла.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitVersionByTag.WorkingDirectory">
+            <summary>Путь к директории с папкой .git.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitVersionByTag.Input">
+            <summary>Файл с шаблоном.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitVersionByTag.Output">
+            <summary>Результирующий файл.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.GitVersionByTag.Match">
+            <summary>Устанавливает и возвращает паттерн по котрому ищется тег.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.TemplateAssemblyVersion">
+            <summary>
+            Создание файла на основе шаблона.
+            $MAJOR$.$MINOR$.$BUILD$.$REVISION$.
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TemplateAssemblyVersion.Assembly">
+            <summary>Сборка из которой необходимо извлечь номер версии.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TemplateAssemblyVersion.Input">
+            <summary>Исходный nsi-файл с шаблоном 'PRODUCT_VERSION'.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TemplateAssemblyVersion.Output">
+            <summary>Результирующий nsi-файл.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.SetVersionNSIS">
+            <summary>
+            Установка номера версии в nsi-файле из указанной сборки.
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.SetVersionNSIS.Assembly">
+            <summary>Сборка из которой необходимо извлечь номер версии.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.SetVersionNSIS.NSISScript">
+            <summary>Исходный nsi-файл с шаблоном 'PRODUCT_VERSION'.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.SetVersionNSIS.NSISScriptTarget">
+            <summary>Результирующий nsi-файл.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.SetVersionNSIS.FullVersion">
+            <summary>Полная версия приложения.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.TemplateVersion">
+            <summary>
+            Создание файла на основе шаблона.
+            $MAJOR$.$MINOR$.$BUILD$.$REVISION$.
+            </summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TemplateVersion.Input">
+            <summary>Файл с шаблоном.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.TemplateVersion.Output">
+            <summary>Результирующий файл.</summary>
+        </member>
+        <member name="T:Mallenom.MSBuildTasks.ResolveWixComponents">
+            <summary>Добавление новых компонент в список компонент.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.ResolveWixComponents.AcceptExtensions">
+            <summary>Маска допускаемых файлов.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.ResolveWixComponents.IgnorePrefix">
+            <summary>Маска игнорируемых файлов.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.ResolveWixComponents.OutputFileName">
+            <summary>Имя выходного файла с компонентами.</summary>
+        </member>
+        <member name="P:Mallenom.MSBuildTasks.ResolveWixComponents.RelativePathParam">
+            <summary>Имя относительного пути к добавляемым компонентам.</summary>
+        </member>
+    </members>
+</doc>

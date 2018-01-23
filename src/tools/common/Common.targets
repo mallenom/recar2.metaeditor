@@ -1,0 +1,23 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<BuildDirectory Condition="'$(BuildDirectory)'==''">$(MSBuildProjectDirectory)\..\</BuildDirectory>
+		<CommonToolsDirectory Condition="'$(CommonToolsDirectory)'==''">$(MSBuildProjectDirectory)\</CommonToolsDirectory>
+		<CommonAssemblyDirectory Condition="'$(CommonAssemblyDirectory)'==''">$(MSBuildProjectDirectory)\</CommonAssemblyDirectory>
+	</PropertyGroup>
+
+	<Import Project="$(CommonToolsDirectory)msbuild\mallenom.msbuildtasks.targets" />
+
+	<Target Name ="PrepareGitRepo">
+		<Exec Command="git fetch --tags"></Exec>
+	</Target>
+
+	<Target Name="GetDataFromGitRepo">
+		<GitVersionByTag
+			Input="$(BuildDirectory)version.build.template.targets"
+			Output="$(BuildDirectory)$(VersionBuildFileName)"
+			Match="initial"
+		/>
+	</Target>
+
+</Project>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <CommitYear>$COMMIT_YEAR$</CommitYear>
+        <CommitDate>$COMMIT_DATE$</CommitDate>
+        <CompileDate>$COMPILE_DATE$</CompileDate>
+
+        <Revision>$OFFSET$</Revision>
+        <Hash>$HASH$</Hash>
+    </PropertyGroup>
+</Project>

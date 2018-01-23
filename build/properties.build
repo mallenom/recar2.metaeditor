@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<PropertyGroup>
+		<!-- Файл решения -->
+		<SolutionFilename>recar2.metaeditor.sln</SolutionFilename>
+		<Configuration>Release</Configuration>
+		<Platform>Any CPU</Platform>
+	</PropertyGroup>
+
+  <PropertyGroup>
+		<!-- Directories -->
+		<BuildDirectory>$(MSBuildProjectDirectory)\</BuildDirectory>
+		<RootDirectory>$([System.IO.Path]::GetFullPath($([System.IO.Path]::Combine('$(MSBuildProjectDirectory)', '..\'))))</RootDirectory>
+		<SourcesDirectory>$([System.IO.Path]::Combine('$(RootDirectory)', 'src'))\</SourcesDirectory>
+		<ToolsDirectory>$([System.IO.Path]::Combine('$(SourcesDirectory)', 'tools'))\</ToolsDirectory>
+		<CommonToolsDirectory>$([System.IO.Path]::Combine('$(ToolsDirectory)', 'common'))\</CommonToolsDirectory>
+		<SharedDirectory>$([System.IO.Path]::Combine('$(SourcesDirectory)', 'shared'))\</SharedDirectory>
+		<NugetPath>$([System.IO.Path]::Combine('$(SourcesDirectory)', '.nuget', 'NuGet.exe'))</NugetPath>
+		<NuspecDirectory>$([System.IO.Path]::Combine('$(BuildDirectory)', 'nuget'))\</NuspecDirectory>
+		<!-- Files -->
+		<SolutionPath>$([System.IO.Path]::Combine('$(SourcesDirectory)', '$(SolutionFilename)'))</SolutionPath>
+		<VersionFile>$([System.IO.Path]::Combine('$(RootDirectory)', 'version'))</VersionFile>
+		<ActualVersionFile>$([System.IO.Path]::Combine('$(RootDirectory)', 'actualversion.txt'))</ActualVersionFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SignedFiles Include="$(SourcesDirectory)\recar2.imagemetadata.prj\bin\$(Configuration)\recar2.imagemetadata.dll" />
+  </ItemGroup>
+
+  <!-- Имена nuget-пакетов -->
+  <ItemGroup>
+    <NugetPkg Include="recar2.imagemetadata" />
+  </ItemGroup>
+
+</Project>

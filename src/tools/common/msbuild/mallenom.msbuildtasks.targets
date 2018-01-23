@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Файл задач Mallenom.MSBuildTasks -->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.TemplateAssemblyVersion"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.TemplateVersion"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.SetVersionNSIS"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.AssemblyDependencies"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.GitVersionByTag"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.TextChanger"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+    
+    <UsingTask TaskName="Mallenom.MSBuildTasks.ResolveWixComponents"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <UsingTask TaskName="Mallenom.MSBuildTasks.FileUpdate"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+    <!-- подготовка конфигурационного файла обфускатора из шаблона -->
+    <UsingTask TaskName="Mallenom.MSBuildTasks.PrepareCodeWallProjectFile"
+               AssemblyFile="mallenom.msbuildtasks.dll"/>
+
+</Project>

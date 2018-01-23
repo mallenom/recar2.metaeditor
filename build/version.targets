@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+    <PropertyGroup>
+        <VersionVcsFileTemplate Condition="'$(VersionVcsFileTemplate)'==''">$(MSBuildThisFileDirectory)\version.vcs.template.targets</VersionVcsFileTemplate>
+        <VersionVcsFile Condition="'$(VersionVcsFile)'==''">$(MSBuildThisFileDirectory)\version.vcs.targets</VersionVcsFile>
+    </PropertyGroup>
+
+    <Import Project="$(VersionFile)" Condition="Exists('$(VersionFile)')" />
+    <Import Project="$(VersionVcsFile)" Condition="Exists('$(VersionVcsFile)')" />
+
+    <PropertyGroup>
+        <FullVersion Condition="'$(ConfigurationVC)'!=''">$(Major).$(Minor).$(Patch)-$(ConfigurationVC)-$(Revision)[$(Hash)]</FullVersion>
+        <FullVersion Condition="'$(ConfigurationVC)'==''">$(Major).$(Minor).$(Patch)-$(Revision)[$(Hash)]</FullVersion>
+        <Version Condition="'$(ConfigurationVC)'!='' And '$(Patch)'!='0'">$(Major).$(Minor).$(Patch)-$(ConfigurationVC)</Version>
+        <Version Condition="'$(ConfigurationVC)'!='' And '$(Patch)'=='0'">$(Major).$(Minor)-$(ConfigurationVC)</Version>
+        <Version Condition="'$(ConfigurationVC)'=='' And '$(Patch)'!='0'">$(Major).$(Minor).$(Patch)</Version>
+        <Version Condition="'$(ConfigurationVC)'=='' And '$(Patch)'=='0'">$(Major).$(Minor)</Version>
+    </PropertyGroup>
+
+</Project>

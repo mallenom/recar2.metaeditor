@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Image Version="1.0">
+  <DongleId Value="" />
+  <HumanChecked Value="True" />
+  <Important Value="False" />
+  <Brightness Value="Light" />
+  <Description Value="" />
+  <Plates>
+    <Plate>
+      <Number Value="P328AH50" />
+      <Stencil Value="RU_N01_a000aa00" />
+      <Quality Value="Normal" />
+      <Country Value="ru" />
+      <Probability Value="0" />
+      <Region>
+        <Point X="1226" Y="934" />
+        <Point X="1790" Y="765" />
+        <Point X="1782" Y="935" />
+        <Point X="1232" Y="1153" />
+      </Region>
+    </Plate>
+  </Plates>
+</Image>

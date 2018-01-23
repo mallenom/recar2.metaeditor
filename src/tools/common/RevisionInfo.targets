@@ -1,0 +1,16 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+	<Import Project="$(ToolsDirectory)\msbuild\mallenom.msbuildtasks.targets" />
+
+	<Target Name="SetRevision">
+		<GitVersionByTag 
+			Input="$(CommonAssemblyDirectory)CommonAssemblyInfo.template.cs"  
+			Output="$(CommonAssemblyDirectory)CommonAssemblyInfo.cs"
+			Match="initial"
+		/> 
+	</Target>
+
+	<Target Name ="GitFetchTags">
+		<Exec Command="git fetch --tags"></Exec>
+	</Target>
+</Project>
